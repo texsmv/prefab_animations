@@ -68,7 +68,8 @@ OutlineButton(
 ```
 
 
-# 3 There are some animations already created: AppearAnimation, BounceAnimation, CircleAnimation, EllipseAnimation, FadeInAnimation, HorizontalMoveInAnimation, HorizontalMoveOutAnimation, JumpAnimation, SpinningAnimation, VerticalAppearAnimation.
+# 3 There are some animations already created: 
+AppearAnimation, BounceAnimation, CircleAnimation, EllipseAnimation, FadeInAnimation, HorizontalMoveInAnimation, HorizontalMoveOutAnimation, JumpAnimation, SpinningAnimation, VerticalAppearAnimation. All of them can be further tuned
 
 However, you can create your own animation receiving two parameters the controller and widget provided in the animation builder
 
