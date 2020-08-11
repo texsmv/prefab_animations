@@ -13,6 +13,7 @@ Add to pubspec.yaml
 
 
 #example1 for animation on create
+```
 EventAnimation(
   initAnimationBuilder: (controller, child) {
     return VerticalAppearAnimation(controller: controller, child: child,);
@@ -51,8 +52,6 @@ EventAnimation(
   child: testCard("Animate on event"),
 ),
 
-...
-
 OutlineButton(
   onPressed: (){
     // send message through stream to animate
@@ -66,6 +65,7 @@ OutlineButton(
     ],
   ),
 )
+```
 
 
 # 3 There are some animations already created: AppearAnimation, BounceAnimation, CircleAnimation, EllipseAnimation, FadeInAnimation, HorizontalMoveInAnimation, HorizontalMoveOutAnimation, JumpAnimation, SpinningAnimation, VerticalAppearAnimation.
@@ -73,7 +73,7 @@ OutlineButton(
 However, you can create your own animation receiving two parameters the controller and widget provided in the animation builder
 
 # 4 You can combine all 4 animation cases
-
+```
 EventAnimation(
   initAnimationBuilder: (controller, child) {
     return HorizontalMoveInAnimation(controller: controller, child: child,);
@@ -91,3 +91,4 @@ EventAnimation(
   eventStreamTrigger: changeNotifier.stream,
   child: testCard("Option1"),
 ),
+```
