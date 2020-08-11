@@ -5,8 +5,12 @@ A new Flutter package project.
 ## Getting Started
 
 
-# 1
-Add to pubspec.yaml
+# 1 Add to pubspec.yaml
+
+prefab_animations: 
+    git: 
+      url: git://github.com/texsmv/prefab_animations.git
+      ref: master
 
 
 # 2 wrap your widget within EventAnimation widget, add an animation builder parameter for initAnimationBuilder, awaitAnimationBuilder, onTapAnimationBuilder or onEventAnimationBuilder
