@@ -5,14 +5,14 @@ A new Flutter package project.
 ## Getting Started
 
 
-#1
+# 1
 Add to pubspec.yaml
 
 
-#2 wrap your widget within EventAnimation widget, add an animation builder parameter for initAnimationBuilder, awaitAnimationBuilder, onTapAnimationBuilder or onEventAnimationBuilder
+# 2 wrap your widget within EventAnimation widget, add an animation builder parameter for initAnimationBuilder, awaitAnimationBuilder, onTapAnimationBuilder or onEventAnimationBuilder
 
 
-# example1 for animation on create
+#example1 for animation on create
 EventAnimation(
   initAnimationBuilder: (controller, child) {
     return VerticalAppearAnimation(controller: controller, child: child,);
@@ -20,7 +20,7 @@ EventAnimation(
   child: testCard("Animate on init"),
 ),
 
-# example2 for animation on await
+#example2 for animation on await
 EventAnimation(
   awaitAnimationBuilder: (controller, child) {
     return BounceAnimation(controller: controller, child: child,);
@@ -28,7 +28,7 @@ EventAnimation(
   child: testCard("Animate on await"),
 ),
 
-# example3 for animation on tap
+#example3 for animation on tap
 EventAnimation(
   onTapAnimationBuilder: (controller, child) {
     return JumpAnimation(controller: controller, child: child,);
@@ -39,7 +39,7 @@ EventAnimation(
   child: testCard("Animate on tap"),
 ),
 
-# example4 for animation on event
+#example4 for animation on event
 final changeNotifier =  StreamController.broadcast();
 
 EventAnimation(
@@ -68,7 +68,26 @@ OutlineButton(
 )
 
 
-#3 There are some animations already created: AppearAnimation, BounceAnimation, CircleAnimation, EllipseAnimation, FadeInAnimation, HorizontalMoveInAnimation, HorizontalMoveOutAnimation, JumpAnimation, SpinningAnimation, VerticalAppearAnimation.
+# 3 There are some animations already created: AppearAnimation, BounceAnimation, CircleAnimation, EllipseAnimation, FadeInAnimation, HorizontalMoveInAnimation, HorizontalMoveOutAnimation, JumpAnimation, SpinningAnimation, VerticalAppearAnimation.
 
 However, you can create your own animation receiving two parameters the controller and widget provided in the animation builder
 
+# 4 You can combine all 4 animation cases
+
+EventAnimation(
+  initAnimationBuilder: (controller, child) {
+    return HorizontalMoveInAnimation(controller: controller, child: child,);
+  },
+  awaitAnimationBuilder: (controller, child) {
+    return BounceAnimation(controller: controller, child: child,);
+  },
+  onTapAnimationBuilder: (controller, child) {
+    return BounceAnimation(controller: controller, child: child,);
+  },
+  onEventAnimationBuilder: (controller, child) {
+    return HorizontalMoveOutAnimation(controller: controller, child: child,);
+  },
+  onEventAnimationDuration: pageTransitionDuration,
+  eventStreamTrigger: changeNotifier.stream,
+  child: testCard("Option1"),
+),
