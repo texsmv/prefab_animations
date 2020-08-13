@@ -1,0 +1,7 @@
+enum ScrollAnimations{
+  IN_BOTH_SIDES,
+  RIGH_ROTATION,
+  CENTER_OUT,
+  ROTATE_X_AXIS,
+  IN_RIGHT,
+}
