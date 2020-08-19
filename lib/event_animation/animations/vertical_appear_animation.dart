@@ -33,7 +33,7 @@ class VerticalAppearAnimation extends AnimatedWidget {
         child: Transform.translate(
           offset: Offset(
               0,
-              opacityTween.evaluate(_progress) * verticalOffSet -
+              translateTween.evaluate(_progress) * verticalOffSet -
                   verticalOffSet),
           child: child,
         ),
