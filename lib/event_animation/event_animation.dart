@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'components/event_animation_controller.dart';
 import 'constants/event_animation_states.dart';
 
 class EventAnimation extends StatefulWidget {
@@ -52,7 +53,11 @@ class EventAnimation extends StatefulWidget {
   /// Function triggered on tap of the widget
   Function onTap;
 
-  Stream eventStreamTrigger;
+  /// controller for the event animation
+  ///
+  /// set broadcast to true if the controller will be used in more than
+  /// one [EventAnimation]s.
+  EventAnimationController controller;
 
   EventAnimation({
     Key key,
@@ -67,8 +72,8 @@ class EventAnimation extends StatefulWidget {
     this.onEventAnimationBuilder,
     this.initDelay,
     this.onTap = null,
-    this.eventStreamTrigger = null,
     this.onTapFunctionDelay,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -116,9 +121,6 @@ class _EventAnimationState extends State<EventAnimation>
   void initializeOnAwait() {
     awaitController = AnimationController(
         vsync: this, duration: widget.awaitAnimationDuration);
-    awaitController.addListener(() {
-      setState(() {});
-    });
 
     awaitController.addStatusListener((AnimationStatus status) {
       if (status == AnimationStatus.completed) {
@@ -144,10 +146,6 @@ class _EventAnimationState extends State<EventAnimation>
         });
       }
     });
-
-    onTapController.addListener(() {
-      setState(() {});
-    });
   }
 
   void initializeOnEvent() {
@@ -162,11 +160,8 @@ class _EventAnimationState extends State<EventAnimation>
       }
     });
 
-    onEventController.addListener(() {
-      setState(() {});
-    });
-
-    streamSubscription = widget.eventStreamTrigger.listen((event) {
+    streamSubscription =
+        widget.controller.changeNotifier.stream.listen((event) {
       onEvent();
     });
   }
@@ -176,7 +171,7 @@ class _EventAnimationState extends State<EventAnimation>
     animateOnInit = !(widget.initAnimationBuilder == null);
     animateOntap = !(widget.onTapAnimationBuilder == null);
     animateOnAwait = !(widget.awaitAnimationBuilder == null);
-    animateOnEvent = (!(widget.eventStreamTrigger == null) &&
+    animateOnEvent = (!(widget.controller == null) &&
         !(widget.onEventAnimationBuilder == null));
 
     if (widget.onTapFunctionDelay == null)
@@ -210,20 +205,24 @@ class _EventAnimationState extends State<EventAnimation>
     super.didUpdateWidget(oldWidget);
 
     if (animateOnEvent) {
-      if (widget.eventStreamTrigger != oldWidget.eventStreamTrigger) {
+      if (widget.controller.changeNotifier.stream !=
+          oldWidget.controller.changeNotifier.stream) {
         streamSubscription.cancel();
-        streamSubscription = widget.eventStreamTrigger.listen((_) {
+        streamSubscription =
+            widget.controller.changeNotifier.stream.listen((_) {
           onEvent();
         });
       }
     }
-
     updateDurations();
   }
 
   @override
   void dispose() {
-    if (streamSubscription != null) streamSubscription.cancel();
+    if (streamSubscription != null) {
+      streamSubscription.cancel();
+      widget.controller.changeNotifier.close();
+    }
 
     if (onEventController != null) onEventController.dispose();
     if (awaitController != null) awaitController.dispose();

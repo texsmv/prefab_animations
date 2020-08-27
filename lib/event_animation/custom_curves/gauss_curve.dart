@@ -1,9 +1,8 @@
 import 'dart:math' as math;
 
-
 import 'package:flutter/material.dart';
 
-class TestCurve extends Curve{
+class TestCurve extends Curve {
   final double count;
 
   TestCurve({this.count = 3});
@@ -11,11 +10,9 @@ class TestCurve extends Curve{
   @override
   double transformInternal(double t) {
     double val = math.sin(count * 2 * math.pi * (t + 0.23)) * 0.5 + 0.5;
-    return 1- val;
+    return 1 - val;
   }
-
 }
-
 
 class SineOutCurve extends Curve {
   /// Creates an sine-out curve.
@@ -81,12 +78,11 @@ class SineInOutCurve extends Curve {
   }
 }
 
-
 class GaussCurve extends Curve {
   /// Creates an sine-in-out curve.
   ///
   /// Rather than creating a new instance, consider using [Ease.sineInOut].
-  
+
   double a = 1;
   double b = 0.5;
   double c = -0.18;
@@ -94,7 +90,6 @@ class GaussCurve extends Curve {
 
   @override
   double transform(double t) {
-    return a * math.exp(- (math.pow(t - b, 2)) / (2 * ( math.pow(c, 2)) ));
-    
+    return a * math.exp(-(math.pow(t - b, 2)) / (2 * (math.pow(c, 2))));
   }
 }

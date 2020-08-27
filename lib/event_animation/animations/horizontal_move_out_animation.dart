@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
-
 class HorizontalMoveOutAnimation extends AnimatedWidget {
   Widget child;
   double movementSize;
   HorizontalMoveOutAnimation({
-                              Key key, 
-                              @required AnimationController controller, 
-                              this.movementSize = 300,
-                              this.child, 
-                           })
-      : super(key: key, listenable: controller);
+    Key key,
+    @required AnimationController controller,
+    this.movementSize = 300,
+    this.child,
+  }) : super(key: key, listenable: controller);
 
   Animation<double> get _progress => listenable;
 

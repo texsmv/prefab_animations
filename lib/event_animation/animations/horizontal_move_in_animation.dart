@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
-
 class HorizontalMoveInAnimation extends AnimatedWidget {
   Widget child;
   double movementSize;
   HorizontalMoveInAnimation({
-                              Key key, 
-                              @required AnimationController controller, 
-                              this.movementSize = 300,
-                              this.child, 
-                           })
-      : super(key: key, listenable: controller);
+    Key key,
+    @required AnimationController controller,
+    this.movementSize = 300,
+    this.child,
+  }) : super(key: key, listenable: controller);
 
   Animation<double> get _progress => listenable;
 
