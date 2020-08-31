@@ -234,9 +234,12 @@ class _EventAnimationState extends State<EventAnimation>
   @override
   Widget build(BuildContext context) {
     /// tapable widget
+
     Widget childWidget = GestureDetector(
       behavior: HitTestBehavior.opaque,
-      child: widget.child,
+      child: (widget.onTap != null)
+          ? AbsorbPointer(child: widget.child)
+          : widget.child,
       onTap: () {
         onTap();
       },
