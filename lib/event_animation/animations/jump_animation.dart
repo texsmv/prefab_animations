@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prefab_animations/event_animation/custom_curves/gauss_curve.dart';
 
 class JumpAnimation extends AnimatedWidget {
   Widget child;
   double movementSize;
+  CurveTween tween;
   JumpAnimation({
     Key key,
     @required AnimationController controller,
@@ -12,10 +12,10 @@ class JumpAnimation extends AnimatedWidget {
   }) : super(key: key, listenable: controller);
 
   Animation<double> get _progress => listenable;
-  CurveTween tween = CurveTween(curve: GaussCurve());
 
   @override
   Widget build(BuildContext context) {
+    if (tween == null) tween = CurveTween(curve: Curves.ease);
     return Transform.translate(
       offset: Offset(0, tween.evaluate(_progress) * -movementSize),
       child: child,

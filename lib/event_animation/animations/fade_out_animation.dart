@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class FadeOutAnimation extends AnimatedWidget {
   Widget child;
+  CurveTween tween;
   FadeOutAnimation({
     Key key,
     AnimationController controller,
@@ -9,12 +10,15 @@ class FadeOutAnimation extends AnimatedWidget {
   }) : super(key: key, listenable: controller);
 
   Animation<double> get _progress => listenable;
-  Animatable<double> tween = CurveTween(curve: Curves.linear.flipped);
+  Animatable<double> flippedTween = CurveTween(curve: Curves.linear.flipped);
 
   @override
   Widget build(BuildContext context) {
+    if (tween == null) tween = CurveTween(curve: Curves.linear);
+    if (flippedTween == null)
+      flippedTween = CurveTween(curve: tween.curve.flipped);
     return FadeTransition(
-      opacity: tween.animate(_progress),
+      opacity: flippedTween.animate(_progress),
       child: child,
     );
   }

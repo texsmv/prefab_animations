@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class SpinningAnimation extends AnimatedWidget {
   Widget child;
+  CurveTween tween;
   SpinningAnimation({
     Key key,
     AnimationController controller,
@@ -12,6 +13,7 @@ class SpinningAnimation extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (tween == null) tween = CurveTween(curve: Curves.linear);
     return RotationTransition(
       turns: _progress,
       child: child,

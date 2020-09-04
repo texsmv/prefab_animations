@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class HorizontalMoveOutAnimation extends AnimatedWidget {
   Widget child;
   double movementSize;
+  CurveTween tween;
   HorizontalMoveOutAnimation({
     Key key,
     @required AnimationController controller,
@@ -14,8 +15,9 @@ class HorizontalMoveOutAnimation extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (tween == null) tween = CurveTween(curve: Curves.linear);
     return Transform.translate(
-      offset: Offset(_progress.value * movementSize, 0),
+      offset: Offset(tween.evaluate(_progress) * movementSize, 0),
       child: child,
     );
   }
