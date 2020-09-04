@@ -9,6 +9,7 @@ class JumpAnimation extends AnimatedWidget {
     @required AnimationController controller,
     this.movementSize = 10,
     this.child,
+    this.tween,
   }) : super(key: key, listenable: controller);
 
   Animation<double> get _progress => listenable;
