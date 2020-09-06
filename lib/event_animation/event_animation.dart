@@ -64,6 +64,9 @@ class EventAnimation extends StatefulWidget {
   bool onEventRepeat;
   bool onInitRepeat;
 
+  /// disable all animations
+  bool disableAnimations;
+
   EventAnimation({
     Key key,
     @required this.child,
@@ -83,6 +86,7 @@ class EventAnimation extends StatefulWidget {
     this.awaitRepeat = true,
     this.onEventRepeat = false,
     this.onInitRepeat = false,
+    this.disableAnimations = false,
   }) : super(key: key);
 
   @override
@@ -292,7 +296,6 @@ class _EventAnimationState extends State<EventAnimation>
   @override
   Widget build(BuildContext context) {
     /// tapable widget
-
     Widget childWidget = GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: (widget.onTap != null)
@@ -302,6 +305,9 @@ class _EventAnimationState extends State<EventAnimation>
         onTap();
       },
     );
+
+    /// return child without animations
+    if (widget.disableAnimations) return widget.child;
 
     /// onInit state
     ///
