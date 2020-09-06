@@ -307,7 +307,7 @@ class _EventAnimationState extends State<EventAnimation>
     );
 
     /// return child without animations
-    if (widget.disableAnimations) return widget.child;
+    if (widget.disableAnimations) return childWidget;
 
     /// onInit state
     ///
