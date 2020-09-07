@@ -67,6 +67,9 @@ class EventAnimation extends StatefulWidget {
   /// disable all animations
   bool disableAnimations;
 
+  /// resets eventController after event triggered
+  bool onEventReset;
+
   EventAnimation({
     Key key,
     @required this.child,
@@ -87,6 +90,7 @@ class EventAnimation extends StatefulWidget {
     this.onEventRepeat = false,
     this.onInitRepeat = false,
     this.disableAnimations = false,
+    this.onEventReset = true,
   }) : super(key: key);
 
   @override
@@ -213,7 +217,7 @@ class _EventAnimationState extends State<EventAnimation>
         if (status == AnimationStatus.completed) {
           setState(() {
             state = lastState;
-            onEventController.reset();
+            if (widget.onEventReset) onEventController.reset();
           });
         }
       }
