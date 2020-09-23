@@ -12,7 +12,11 @@ class EventAnimationController {
       changeNotifier = StreamController();
   }
 
-  void animateOnEvent() {
-    changeNotifier.add(null);
+  void triggerForwardEvent() {
+    changeNotifier.add(1);
+  }
+
+  void triggerBackwardEvent() {
+    changeNotifier.add(-1);
   }
 }

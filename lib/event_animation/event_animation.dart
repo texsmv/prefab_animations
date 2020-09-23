@@ -68,7 +68,10 @@ class EventAnimation extends StatefulWidget {
   bool disableAnimations;
 
   /// resets eventController after event triggered
-  bool onEventReset;
+  bool onEventAfterForwardReset;
+  bool onEventBeforeForwardReset;
+
+  bool onEventControlRepeat;
 
   EventAnimation({
     Key key,
@@ -90,7 +93,9 @@ class EventAnimation extends StatefulWidget {
     this.onEventRepeat = false,
     this.onInitRepeat = false,
     this.disableAnimations = false,
-    this.onEventReset = true,
+    this.onEventAfterForwardReset = true,
+    this.onEventBeforeForwardReset = true,
+    this.onEventControlRepeat = false,
   }) : super(key: key);
 
   @override
@@ -210,22 +215,22 @@ class _EventAnimationState extends State<EventAnimation>
         } else if (status == AnimationStatus.dismissed && !eventTriggered) {
           setState(() {
             state = lastState;
-            onEventController.reset();
+            if (widget.onEventAfterForwardReset) onEventController.reset();
           });
         }
       } else {
         if (status == AnimationStatus.completed) {
           setState(() {
             state = lastState;
-            if (widget.onEventReset) onEventController.reset();
+            if (widget.onEventAfterForwardReset) onEventController.reset();
           });
         }
       }
     });
 
     streamSubscription =
-        widget.controller.changeNotifier.stream.listen((event) {
-      onEvent();
+        widget.controller.changeNotifier.stream.listen((value) {
+      onEvent(value);
     });
   }
 
@@ -275,8 +280,8 @@ class _EventAnimationState extends State<EventAnimation>
           oldWidget.controller.changeNotifier.stream) {
         streamSubscription.cancel();
         streamSubscription =
-            widget.controller.changeNotifier.stream.listen((_) {
-          onEvent();
+            widget.controller.changeNotifier.stream.listen((value) {
+          onEvent(value);
         });
       }
     }
@@ -487,14 +492,17 @@ class _EventAnimationState extends State<EventAnimation>
     }
   }
 
-  void onEvent() {
+  void onEvent(int value) {
     if (animateOnEvent && state != EventAnimationState.INIT) {
       setState(() {
         lastState = state;
         state = EventAnimationState.ON_EVENT;
-        onEventController.reset();
+        if (value == 1 && widget.onEventBeforeForwardReset)
+          onEventController.reset();
         eventTriggered = true;
-        onEventController.forward();
+        if (value == 1)
+          onEventController.forward();
+        else if (value == -1) onEventController.reverse();
       });
     }
   }
