@@ -306,15 +306,20 @@ class _EventAnimationState extends State<EventAnimation>
   Widget build(BuildContext context) {
     /// tapable widget\
 
-    Widget childWidget = GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      child: (widget.onTap != null)
-          ? AbsorbPointer(child: widget.child)
-          : widget.child,
-      onTap: () {
-        onTap();
-      },
-    );
+    Widget childWidget = (widget.onTap != null)
+        ? GestureDetector(
+            child: widget.child,
+          )
+        : widget.child;
+    // Widget childWidget = GestureDetector(
+    //   behavior: HitTestBehavior.translucent,
+    //   child: (widget.onTap != null)
+    //       ? AbsorbPointer(child: widget.child)
+    //       : widget.child,
+    //   onTap: () {
+    //     onTap();
+    //   },
+    // );
 
     /// return child without animations
     if (widget.disableAnimations) return childWidget;
