@@ -123,6 +123,8 @@ class _EventAnimationState extends State<EventAnimation>
   bool tapped = false;
   bool eventTriggered = false;
 
+  Widget childWidget;
+
   void initializeOnInit() {
     state = EventAnimationState.INIT;
     initController = AnimationController(
@@ -306,11 +308,12 @@ class _EventAnimationState extends State<EventAnimation>
   Widget build(BuildContext context) {
     /// tapable widget\
 
-    Widget childWidget = (widget.onTap != null)
-        ? GestureDetector(
-            child: widget.child,
-          )
-        : widget.child;
+    if (childWidget == null)
+      childWidget = (widget.onTap != null)
+          ? GestureDetector(
+              child: widget.child,
+            )
+          : widget.child;
     // Widget childWidget = GestureDetector(
     //   behavior: HitTestBehavior.translucent,
     //   child: (widget.onTap != null)
