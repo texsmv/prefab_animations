@@ -136,8 +136,8 @@ class _AnimatedState extends State<Animated> with TickerProviderStateMixin {
       String tag = math.Random().nextDouble().toString();
       eventController = Get.put(
           EventController(
-              duration: widget.tapDuration,
-              repeatReverse: widget.tapRepeatReverse,
+              duration: widget.eventDuration,
+              repeatReverse: widget.eventRepeatReverse,
               resetAfterForward: widget.eventResetAfterForward,
               resetBeforeForward: widget.eventResetBeforeForward,
               eventHandler: widget.eventHandler),
