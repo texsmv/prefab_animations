@@ -124,11 +124,11 @@ class _AnimatedState extends State<Animated> with TickerProviderStateMixin {
       String tag = math.Random().nextDouble().toString();
       tapController = Get.put(
           TapController(
-            duration: widget.tapDuration,
-            repeatReverse: widget.tapRepeatReverse,
-            onTap: widget.onTap,
-            functionDelay: widget.tapFunctionDelay,
-          ),
+              duration: widget.tapDuration,
+              repeatReverse: widget.tapRepeatReverse,
+              onTap: widget.onTap,
+              functionDelay:
+                  widget.tapFunctionDelay ?? _getDefaultFunctionDelay()),
           tag: tag);
     }
 
@@ -145,6 +145,13 @@ class _AnimatedState extends State<Animated> with TickerProviderStateMixin {
     }
   }
 
+  Duration _getDefaultFunctionDelay() {
+    if (widget.tapRepeatReverse == true)
+      return widget.tapDuration * 2;
+    else
+      return widget.tapDuration;
+  }
+
   @override
   void didUpdateWidget(Animated oldWidget) {
     if (doLoop) {
@@ -157,8 +164,8 @@ class _AnimatedState extends State<Animated> with TickerProviderStateMixin {
     if (doTap) {
       if (tapController.animationController.duration != widget.tapDuration)
         tapController.animationController.duration = widget.tapDuration;
-      if (tapController.functionDelay != widget.tapFunctionDelay)
-        tapController.functionDelay = widget.tapFunctionDelay;
+      tapController.functionDelay =
+          widget.tapFunctionDelay ?? _getDefaultFunctionDelay();
       if (tapController.onTap != widget.onTap)
         tapController.onTap = widget.onTap;
       if (tapController.repeatReverse != widget.tapRepeatReverse)

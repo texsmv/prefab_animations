@@ -54,8 +54,18 @@ class _AnimatedTapState extends State<AnimatedTap>
         tapController.onTap = widget.onTap;
       if (tapController.repeatReverse != widget.repeatReverse)
         tapController.repeatReverse = widget.repeatReverse;
+
+      tapController.functionDelay =
+          widget.functionDelay ?? _getDefaultFunctionDelay();
     }
     super.didUpdateWidget(oldWidget);
+  }
+
+  Duration _getDefaultFunctionDelay() {
+    if (widget.repeatReverse == true)
+      return widget.duration * 2;
+    else
+      return widget.duration;
   }
 
   @override
@@ -69,7 +79,7 @@ class _AnimatedTapState extends State<AnimatedTap>
             duration: widget.duration,
             repeatReverse: widget.repeatReverse,
             onTap: widget.onTap,
-            functionDelay: widget.functionDelay,
+            functionDelay: widget.functionDelay ?? _getDefaultFunctionDelay(),
           ),
           tag: tag);
       tapController.animationController =
