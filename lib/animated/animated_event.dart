@@ -49,8 +49,7 @@ class _AnimatedEventState extends State<AnimatedEvent>
   @override
   void didUpdateWidget(AnimatedEvent oldWidget) {
     if (widget.eventController == null) {
-      if (eventController.animationController.duration != widget.duration)
-        eventController.animationController.duration = widget.duration;
+      eventController.animationController.duration = widget.duration;
 
       eventController.repeatReverse = widget.repeatReverse;
       eventController.resetAfterForward = widget.resetAfterForward;
