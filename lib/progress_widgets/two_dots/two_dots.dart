@@ -34,7 +34,7 @@ class _TwoDotsIndicatorsState extends State<TwoDotsIndicator>
     Future.delayed(Duration(
             milliseconds: (widget.duration.inMilliseconds / 4).floor()))
         .then((value) {
-      if (!_disposed)s
+      if (!_disposed)
         setState(() {
           isPairRound = !isPairRound;
         });
