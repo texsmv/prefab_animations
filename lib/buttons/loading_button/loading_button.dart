@@ -17,6 +17,7 @@ class LoadingButton extends StatefulWidget {
   Duration indicatorDuration;
   Duration transformDuration;
   Function successCallback;
+  Duration opacityDuration;
 
   Function(dynamic) hasSucceeded;
 
@@ -29,6 +30,7 @@ class LoadingButton extends StatefulWidget {
       @required this.futureFunction,
       @required this.child,
       @required this.hasSucceeded,
+      this.opacityDuration = const Duration(milliseconds: 80),
       this.successCallback,
       this.strokeWidth = 2,
       this.strokeColor = Colors.white,
@@ -73,6 +75,7 @@ class _LoadingButtonState extends State<LoadingButton> {
       repeatReverse: false,
       eventHandler: eventLauncher,
       child: ButtonContent(
+        opacityDuration: widget.opacityDuration,
         indicatorAnimationDuration: widget.indicatorDuration,
         strokeWidth: widget.strokeWidth,
         color: widget.strokeColor,
@@ -109,7 +112,6 @@ class _LoadingButtonState extends State<LoadingButton> {
                 });
               },
               child: Container(
-                clipBehavior: Clip.antiAlias,
                 height: widget.height,
                 width: widget.width -
                     (widget.width - loadingWidth) *

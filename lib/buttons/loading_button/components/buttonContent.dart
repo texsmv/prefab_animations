@@ -15,12 +15,14 @@ class ButtonContent extends StatelessWidget {
   Duration indicatorAnimationDuration;
   double strokeWidth;
   Color color;
+  Duration opacityDuration;
   ButtonContent(
       {Key key,
       @required this.child,
       @required this.loading,
       @required this.fadeContent,
       this.callback,
+      @required this.opacityDuration,
       @required this.indicatorAnimationDuration,
       @required this.checkAnimationDuration,
       @required this.checkDelay,
@@ -55,7 +57,7 @@ class ButtonContent extends StatelessWidget {
         : AnimatedOpacity(
             opacity: fadeContent ? 0 : 1,
             child: child,
-            duration: Duration(milliseconds: 80),
+            duration: opacityDuration,
           );
   }
 }
