@@ -16,8 +16,9 @@ class LoadingButton extends StatefulWidget {
   Color strokeColor;
   Duration indicatorDuration;
   Duration transformDuration;
+  Function successCallback;
 
-  Function(dynamic) isAlright;
+  Function(dynamic) hasSucceeded;
 
   Color fillColor;
 
@@ -27,7 +28,8 @@ class LoadingButton extends StatefulWidget {
       this.height,
       @required this.futureFunction,
       @required this.child,
-      @required this.isAlright,
+      @required this.hasSucceeded,
+      this.successCallback,
       this.strokeWidth = 2,
       this.strokeColor = Colors.white,
       this.checkAnimationDuration = const Duration(milliseconds: 350),
@@ -79,6 +81,7 @@ class _LoadingButtonState extends State<LoadingButton> {
         callback: () {
           showCheck = false;
           doBackward();
+          if (widget.successCallback != null) widget.successCallback();
         },
         showCheck: showCheck,
         fadeContent: fadeContent,
@@ -124,7 +127,7 @@ class _LoadingButtonState extends State<LoadingButton> {
   }
 
   void onFutureFinish(dynamic result) {
-    if (widget.isAlright(result)) {
+    if (widget.hasSucceeded(result)) {
       this.setState(() {
         showCheck = true;
       });
