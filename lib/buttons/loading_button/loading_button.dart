@@ -109,6 +109,7 @@ class _LoadingButtonState extends State<LoadingButton> {
                 });
               },
               child: Container(
+                clipBehavior: Clip.antiAlias,
                 height: widget.height,
                 width: widget.width -
                     (widget.width - loadingWidth) *
