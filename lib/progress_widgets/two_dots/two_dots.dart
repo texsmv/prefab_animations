@@ -28,14 +28,16 @@ class _TwoDotsIndicatorsState extends State<TwoDotsIndicator>
   double get delta => (controller.value - lastValue).abs();
 
   double acumulado = 0;
+  bool _disposed = false;
 
   void changeOverlap() {
     Future.delayed(Duration(
             milliseconds: (widget.duration.inMilliseconds / 4).floor()))
         .then((value) {
-      setState(() {
-        isPairRound = !isPairRound;
-      });
+      if (!_disposed)s
+        setState(() {
+          isPairRound = !isPairRound;
+        });
     });
   }
 
@@ -60,6 +62,7 @@ class _TwoDotsIndicatorsState extends State<TwoDotsIndicator>
 
   @override
   void dispose() {
+    _disposed = true;
     controller.dispose();
     super.dispose();
   }
